@@ -6,12 +6,14 @@ interface FormData {
   name: string;
   email: string;
   password: string;
+  agreed: boolean;
 }
 
 interface FormErrors {
   name?: string;
   email?: string;
   password?: string;
+  agreed?: string;
 }
 
 const App: React.FC = () => {
@@ -19,10 +21,11 @@ const App: React.FC = () => {
     name: "",
     email: "",
     password: "",
+    agreed: false,
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  // Check if entire form is valid
   const isFormValid = (): boolean => {
     if (!formData.name.trim()) return false;
     if (
@@ -36,9 +39,13 @@ const App: React.FC = () => {
     if (!/[A-Z]/.test(formData.password)) return false;
     if (!/[a-z]/.test(formData.password)) return false;
     if (!/[^A-Za-z0-9]/.test(formData.password)) return false;
+    // Must agree to T&C
+    if (!formData.agreed) return false;
+
     return true;
   };
 
+  // Validate fields on final submit
   const validateOnSubmit = (): boolean => {
     const errors: FormErrors = {};
 
@@ -61,19 +68,23 @@ const App: React.FC = () => {
     } else if (!/[^A-Za-z0-9]/.test(formData.password)) {
       errors.password = "Password must contain at least one special character.";
     }
+    if (!formData.agreed) {
+      errors.agreed = "You must agree to the terms and conditions.";
+    }
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
+  // Handle real-time input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
 
-    // Real-time validation
+    // Basic real-time validation
     if (name === "name") {
       let error = "";
       if (!value.trim()) {
@@ -102,16 +113,23 @@ const App: React.FC = () => {
         error = "Password must contain at least one special character.";
       }
       setFormErrors((prev) => ({ ...prev, password: error }));
+    } else if (name === "agreed") {
+      let error = "";
+      if (!checked) {
+        error = "You must agree to the terms and conditions.";
+      }
+      setFormErrors((prev) => ({ ...prev, agreed: error }));
     }
   };
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOnSubmit()) {
       alert("Form submitted successfully!");
-      setFormData({ name: "", email: "", password: "" });
+      // Reset form
+      setFormData({ name: "", email: "", password: "", agreed: false });
       setFormErrors({});
-      setShowPassword(false);
     }
   };
 
@@ -119,6 +137,7 @@ const App: React.FC = () => {
     <div className="container">
       <h1>Form Validator</h1>
       <form onSubmit={handleSubmit} noValidate>
+        {/* Name */}
         <div className="form-control">
           <label htmlFor="name">Name:</label>
           <input
@@ -131,6 +150,7 @@ const App: React.FC = () => {
           {formErrors.name && <p className="error">{formErrors.name}</p>}
         </div>
 
+        {/* Email */}
         <div className="form-control">
           <label htmlFor="email">Email:</label>
           <input
@@ -143,27 +163,35 @@ const App: React.FC = () => {
           {formErrors.email && <p className="error">{formErrors.email}</p>}
         </div>
 
+        {/* Password */}
         <div className="form-control">
           <label htmlFor="password">Password:</label>
-          <div className="password-wrapper">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
           {formErrors.password && <p className="error">{formErrors.password}</p>}
         </div>
 
+        {/* Terms & Conditions */}
+        <div className="form-control">
+          <label htmlFor="agreed">
+            <input
+              type="checkbox"
+              id="agreed"
+              name="agreed"
+              checked={formData.agreed}
+              onChange={handleChange}
+            />
+            I agree to the terms and conditions
+          </label>
+          {formErrors.agreed && <p className="error">{formErrors.agreed}</p>}
+        </div>
+
+        {/* Submit */}
         <button
           type="submit"
           disabled={!isFormValid()}

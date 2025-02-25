@@ -100,14 +100,12 @@ form {
   background-color: #58c4da;
 }
 
-/* NEW: Password wrapper to position the toggle button */
 .password-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* NEW: Toggle button styling */
 .toggle-password {
   margin-left: 8px;
   background: none;
@@ -122,3 +120,55 @@ form {
 .toggle-password:hover {
   background: #eee;
 }
+.checkbox-control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+  
+  .checkbox-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none; 
+  }
+  .checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+
+  .custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #62d0e4; 
+    border-radius: 4px;
+    margin-right: 8px;
+    box-shadow: 0 0 4px rgba(98, 208, 228, 0.5); 
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .checkbox-label input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #62d0e4;
+    box-shadow: 0 0 8px rgba(98, 208, 228, 0.7); 
+  }
+  
+  .checkbox-label input[type="checkbox"]:checked + .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    border: solid #fff; 
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .form-control input[type="checkbox"] {
+    accent-color: #62d0e4; 
+    width: 15px;
+    height: 14px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
