@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
+  \*****************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap);
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css (1) ***!
+  \*********************************************************************/
 /* Apply a soft gradient background similar to the screenshot */
 body {
     margin: 0;
@@ -8,17 +14,17 @@ body {
     justify-content: center;
     align-items: center;
   
-    /* A soft greenish to bluish gradient (top to bottom) */
+    /* Minty-blue gradient background */
     background: linear-gradient(
-      180deg,     /* vertical gradient */
-      #baf8c5 0%, /* pastel green at the top */
-      #d3f8fa 100% /* pastel blue at the bottom */
+      180deg,
+      #d1f1f7 0%,
+      #f2fcfe 100%
     );
   
-    font-family: 'Inter', sans-serif; /* or your preferred font */
+    /* Use the imported font, fallback to sans-serif */
+    font-family: 'Inter', sans-serif;
     color: #3d3d3d;
   }
-  
   .container {
     /* White “card” with rounded corners and subtle shadow */
     background-color: #ffffff;
@@ -92,3 +98,5 @@ body {
     background: #a3cfd4;
   }
           
+
+/*# sourceMappingURL=main.226243323d01b1a2501f.css.map*/
