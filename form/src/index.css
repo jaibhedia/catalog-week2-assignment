@@ -1,129 +1,101 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    background: linear-gradient(
-      180deg,
-      #bdeedd 0%,
-      #d3f8fa 100%
-    );
-  
-
-    font-family: "Inter", sans-serif;
-  }
-  
-  .container {
-   
-    background: rgba(255, 255, 255, 0.6);
-  
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-  
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  
-    width: 360px; 
-    max-width: 90%;
-    padding: 24px;
-  
-    color: #363535; 
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px; 
-  }
-  
-.form-control {
-    background: rgba(255, 255, 255, 0.7); 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-  
-  .form-control label {
-    font-weight: 500; 
-    margin-bottom: 6px;
-    display: block;
-    color: #444; 
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    #bdeedd 0%,
+    #d3f8fa 100%
+  );
+  font-family: "Inter", sans-serif;
 }
-  
-  .form-control input {
-    border: none;
-    outline: none;
-    background: transparent; 
-    font-size: 1rem;
-    color: #444; 
-    width: 100%;
-  }
-  
-  .form-control input::placeholder {
-    color: #bdbdbd;
-  }
-  
-  .form-control input:focus {
-    border-color: #b3dfe4; 
-  }
-  .error {
-    margin-top: 4px;
-    font-size: 0.875rem;
-    color: #e63946; 
-  }
-  button[type="submit"] {
-    cursor: pointer;
-    border: none;
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-  
-    background: #b3dfe4;
-    transition: background 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background: #a3cfd4;
-  }
 
+.container {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 360px;
+  max-width: 90%;
+  padding: 24px;
+  color: #363535;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.form-control label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+  color: #444;
+}
+
+.form-control input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #444;
+  width: 100%;
+}
+
+.form-control input::placeholder {
+  color: #bdbdbd;
+}
+
+.form-control input:focus {
+  border-color: #b3dfe4;
+}
+
+.error {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: #e63946;
+}
+
+/* Submit button styles */
 .submit-button {
-    border: none;
-    border-radius: 999px; 
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-  
-   
-    background-color: #62d0e4;
-  }
-  
- 
-  .submit-button.inactive {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
+  border: none;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  background-color: #62d0e4;
+}
 
-  .submit-button.active {
-    opacity: 1;
-    background-color: #62d0e4; 
-  }
-  
+.submit-button.inactive {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .submit-button.active:hover {
-    background-color: #58c4da;
-  }
-  
+.submit-button.active {
+  opacity: 1;
+  background-color: #62d0e4;
+}
+
+.submit-button.active:hover {
+  background-color: #58c4da;
+}
