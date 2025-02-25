@@ -1,0 +1,11 @@
+{
+  "name": "form",
+  "version": "1.0.0",
+  "description": "catalog week 2 form validator using react without cra and ts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jaibhedia",
+  "license": "ISC"
+}
