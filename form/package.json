@@ -24,7 +24,10 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
+    "core-js": "^3.40.0",
+    "raf": "^3.4.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "whatwg-fetch": "^3.6.20"
   }
 }
