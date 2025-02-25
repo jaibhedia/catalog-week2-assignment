@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-/* Apply a soft gradient background similar to the screenshot */
+
 body {
     margin: 0;
     padding: 0;
@@ -8,71 +8,76 @@ body {
     justify-content: center;
     align-items: center;
   
-    /* A soft greenish to bluish gradient (top to bottom) */
     background: linear-gradient(
-      180deg,     /* vertical gradient */
-      #baf8c5 0%, /* pastel green at the top */
-      #d3f8fa 100% /* pastel blue at the bottom */
+      180deg,
+      #bdeedd 0%,
+      #d3f8fa 100%
     );
   
-    font-family: 'Inter', sans-serif; /* or your preferred font */
-    color: #3d3d3d;
+
+    font-family: "Inter", sans-serif;
   }
   
   .container {
-    /* White “card” with rounded corners and subtle shadow */
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+   
+    background: rgba(255, 255, 255, 0.6);
   
-    /* Sizing & spacing */
-    width: 360px; /* adjust as needed */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  
+    width: 360px; 
     max-width: 90%;
     padding: 24px;
+  
+    color: #363535; 
   }
   form {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* space between fields */
+    gap: 16px; 
   }
   
-  /* Each field’s wrapper */
-  .form-control {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Labels */
-  .form-control label {
-    font-weight: 600; /* slightly bolder label */
-    margin-bottom: 4px;
-    color: #4f4f4f;
-  }
-  
-  /* Inputs */
-  .form-control input {
-    border: 1px solid #e0e0e0;
+.form-control {
+    background: rgba(255, 255, 255, 0.7); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     padding: 12px;
-    font-size: 1rem;
-    color: #4f4f4f;
-    outline: none;
-    transition: border-color 0.2s ease;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
   
-  /* Input placeholder color */
+  .form-control label {
+    font-weight: 500; 
+    margin-bottom: 6px;
+    display: block;
+    color: #444; 
+}
+  
+  .form-control input {
+    border: none;
+    outline: none;
+    background: transparent; 
+    font-size: 1rem;
+    color: #444; 
+    width: 100%;
+  }
+  
   .form-control input::placeholder {
     color: #bdbdbd;
   }
   
-  /* Focus state */
   .form-control input:focus {
-    border-color: #b3dfe4; /* a soft highlight */
+    border-color: #b3dfe4; 
   }
   .error {
     margin-top: 4px;
     font-size: 0.875rem;
-    color: #e63946; /* a subtle red for errors */
+    color: #e63946; 
   }
   button[type="submit"] {
     cursor: pointer;
@@ -83,7 +88,6 @@ body {
     font-weight: 600;
     color: #fff;
   
-    /* A soft pastel purple or teal button to match the screenshot vibe */
     background: #b3dfe4;
     transition: background 0.3s ease;
   }
@@ -91,4 +95,35 @@ body {
   button[type="submit"]:hover {
     background: #a3cfd4;
   }
-          
+
+.submit-button {
+    border: none;
+    border-radius: 999px; 
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+  
+   
+    background-color: #62d0e4;
+  }
+  
+ 
+  .submit-button.inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+
+  .submit-button.active {
+    opacity: 1;
+    background-color: #62d0e4; 
+  }
+  
+
+  .submit-button.active:hover {
+    background-color: #58c4da;
+  }
+  
