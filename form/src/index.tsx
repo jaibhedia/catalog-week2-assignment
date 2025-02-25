@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
+/** Data interfaces */
 interface FormData {
   name: string;
   email: string;
   password: string;
   agreed: boolean;
+  city: string;
 }
 
 interface FormErrors {
@@ -14,7 +16,94 @@ interface FormErrors {
   email?: string;
   password?: string;
   agreed?: string;
+  city?: string;
 }
+
+/** A simple list of Indian cities for the modal */
+const indianCities = [
+  "Mumbai",
+  "Delhi",
+  "Bengaluru",
+  "Hyderabad",
+  "Chennai",
+  "Kolkata",
+  "Pune",
+  "Jaipur",
+  "Ahmedabad",
+  "Surat",
+];
+
+/** 
+ * CityModal component with search functionality.
+ * - isOpen: whether the modal is displayed
+ * - onClose: function to close the modal
+ * - onSelect: function to handle city selection
+ */
+interface CityModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSelect: (city: string) => void;
+}
+
+const CityModal: React.FC<CityModalProps> = ({ isOpen, onClose, onSelect }) => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  if (!isOpen) return null;
+
+  // Click outside modal content to close
+  const handleBackdropClick = () => {
+    onClose();
+  };
+
+  // Stop propagation so clicks inside modal don’t close it
+  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
+  // Filter the city list by the search term (case-insensitive)
+  const filteredCities = indianCities.filter((city) =>
+    city.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="city-modal-backdrop" onClick={handleBackdropClick}>
+      <div className="city-modal-content" onClick={handleModalClick}>
+        <h2>Select a City</h2>
+        {/* Search Bar */}
+        <div className="city-modal-search">
+          <input
+            type="text"
+            placeholder="Search city..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <div className="city-list">
+          {filteredCities.length > 0 ? (
+            filteredCities.map((city) => (
+              <div
+                key={city}
+                className="city-list-item"
+                onClick={() => {
+                  onSelect(city);
+                  onClose();
+                }}
+              >
+                {city}
+              </div>
+            ))
+          ) : (
+            <div className="city-list-empty">No results found.</div>
+          )}
+        </div>
+        <button className="close-modal-btn" onClick={onClose}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -22,10 +111,12 @@ const App: React.FC = () => {
     email: "",
     password: "",
     agreed: false,
+    city: "",
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [cityModalOpen, setCityModalOpen] = useState<boolean>(false);
 
-  // Check if entire form is valid
+  /** Check if entire form is valid */
   const isFormValid = (): boolean => {
     if (!formData.name.trim()) return false;
     if (
@@ -39,24 +130,28 @@ const App: React.FC = () => {
     if (!/[A-Z]/.test(formData.password)) return false;
     if (!/[a-z]/.test(formData.password)) return false;
     if (!/[^A-Za-z0-9]/.test(formData.password)) return false;
-    // Must agree to T&C
+    // Must agree
     if (!formData.agreed) return false;
-
+    // Must pick a city
+    if (!formData.city) return false;
     return true;
   };
 
-  // Validate fields on final submit
+  /** Validate fields on final submit */
   const validateOnSubmit = (): boolean => {
     const errors: FormErrors = {};
 
+    // Name
     if (!formData.name.trim()) {
       errors.name = "Name is required.";
     }
+    // Email
     if (!formData.email.trim()) {
       errors.email = "Email is required.";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
       errors.email = "Please enter a valid email address (e.g., test@gmail.com).";
     }
+    // Password
     if (!formData.password) {
       errors.password = "Password is required.";
     } else if (formData.password.length < 8) {
@@ -68,15 +163,20 @@ const App: React.FC = () => {
     } else if (!/[^A-Za-z0-9]/.test(formData.password)) {
       errors.password = "Password must contain at least one special character.";
     }
+    // Must agree
     if (!formData.agreed) {
       errors.agreed = "You must agree to the terms and conditions.";
+    }
+    // Must pick a city
+    if (!formData.city) {
+      errors.city = "Please select a city.";
     }
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Handle real-time input changes
+  /** Handle changes for name, email, password, and agreed checkbox */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -84,12 +184,10 @@ const App: React.FC = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Basic real-time validation
+    // Real-time validation
     if (name === "name") {
       let error = "";
-      if (!value.trim()) {
-        error = "Name is required.";
-      }
+      if (!value.trim()) error = "Name is required.";
       setFormErrors((prev) => ({ ...prev, name: error }));
     } else if (name === "email") {
       let error = "";
@@ -122,13 +220,32 @@ const App: React.FC = () => {
     }
   };
 
-  // Handle form submission
+  /** Called when user selects a city in the modal */
+  const handleCitySelect = (city: string) => {
+    setFormData((prev) => ({ ...prev, city }));
+    // Real-time validation for city
+    let error = "";
+    if (!city) {
+      error = "Please select a city.";
+    }
+    setFormErrors((prev) => ({ ...prev, city: error }));
+  };
+
+  /** Final form submission */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOnSubmit()) {
       alert("Form submitted successfully!");
+      console.log("Submitted form data:", formData);
+
       // Reset form
-      setFormData({ name: "", email: "", password: "", agreed: false });
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        agreed: false,
+        city: "",
+      });
       setFormErrors({});
     }
   };
@@ -176,6 +293,24 @@ const App: React.FC = () => {
           {formErrors.password && <p className="error">{formErrors.password}</p>}
         </div>
 
+        {/* City: Instead of a dropdown, show selected city or placeholder + a button */}
+        <div className="form-control">
+          <label>City:</label>
+          <div className="city-field">
+            <span className="city-display">
+              {formData.city || "No city selected"}
+            </span>
+            <button
+              type="button"
+              className="select-city-btn"
+              onClick={() => setCityModalOpen(true)}
+            >
+              Select City
+            </button>
+          </div>
+          {formErrors.city && <p className="error">{formErrors.city}</p>}
+        </div>
+
         {/* Terms & Conditions */}
         <div className="form-control">
           <label htmlFor="agreed">
@@ -200,6 +335,13 @@ const App: React.FC = () => {
           Submit
         </button>
       </form>
+
+      {/* City Modal with search bar */}
+      <CityModal
+        isOpen={cityModalOpen}
+        onClose={() => setCityModalOpen(false)}
+        onSelect={handleCitySelect}
+      />
     </div>
   );
 };
