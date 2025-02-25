@@ -21,10 +21,14 @@ const App: React.FC = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const isFormValid = (): boolean => {
     if (!formData.name.trim()) return false;
-    if (!formData.email.trim() || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+    if (
+      !formData.email.trim() ||
+      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)
+    ) {
       return false;
     }
     if (!formData.password) return false;
@@ -69,7 +73,7 @@ const App: React.FC = () => {
       [name]: value,
     });
 
-    // Real-time validation for each field
+    // Real-time validation
     if (name === "name") {
       let error = "";
       if (!value.trim()) {
@@ -107,6 +111,7 @@ const App: React.FC = () => {
       alert("Form submitted successfully!");
       setFormData({ name: "", email: "", password: "" });
       setFormErrors({});
+      setShowPassword(false);
     }
   };
 
@@ -116,19 +121,49 @@ const App: React.FC = () => {
       <form onSubmit={handleSubmit} noValidate>
         <div className="form-control">
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
           {formErrors.name && <p className="error">{formErrors.name}</p>}
         </div>
+
         <div className="form-control">
           <label htmlFor="email">Email:</label>
-          <input type="text" id="email" name="email" value={formData.email} onChange={handleChange} />
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
           {formErrors.email && <p className="error">{formErrors.email}</p>}
         </div>
+
         <div className="form-control">
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
           {formErrors.password && <p className="error">{formErrors.password}</p>}
         </div>
+
         <button
           type="submit"
           disabled={!isFormValid()}
