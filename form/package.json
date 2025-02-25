@@ -4,7 +4,8 @@
   "description": "catalog week 2 form validator using react without cra and ts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve --port 3000",
+    "build": "set NODE_ENV=production && webpack"
   },
   "author": "jaibhedia",
   "license": "ISC",
