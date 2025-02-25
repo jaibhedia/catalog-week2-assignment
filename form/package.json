@@ -9,6 +9,13 @@
   "author": "jaibhedia",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "css-loader": "^7.1.2",
+    "esbuild-loader": "^4.3.0",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   }
 }
