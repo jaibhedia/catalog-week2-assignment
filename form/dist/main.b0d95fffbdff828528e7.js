@@ -537,10 +537,10 @@ var createMethod = function (IS_INCLUDES) {
     var index = toAbsoluteIndex(fromIndex, length);
     var value;
     // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare -- NaN check
+     
     if (IS_INCLUDES && el !== el) while (length > index) {
       value = O[index++];
-      // eslint-disable-next-line no-self-compare -- NaN check
+       
       if (value !== value) return true;
     // Array#indexOf ignores holes, Array#includes - not
     } else for (;length > index; index++) {
@@ -655,7 +655,7 @@ try {
   iteratorWithReturn[ITERATOR] = function () {
     return this;
   };
-  // eslint-disable-next-line es/no-array-from, no-throw-literal -- required for testing
+  // eslint-disable-next-line es/no-array-from -- required for testing
   Array.from(iteratorWithReturn, function () { throw 2; });
 } catch (error) { /* empty */ }
 
@@ -1090,7 +1090,7 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
     // V8 ~ Chromium 40- weak-collections throws on primitives, but should return false
     var THROWS_ON_PRIMITIVES = fails(function () { instance.has(1); });
     // most early implementations doesn't supports iterables, most modern - not close it correctly
-    // eslint-disable-next-line no-new -- required for testing
+     
     var ACCEPT_ITERABLES = checkCorrectnessOfIteration(function (iterable) { new NativeConstructor(iterable); });
     // for early implementations -0 and +0 not the same
     var BUGGY_ZERO = !IS_WEAK && fails(function () {
@@ -2219,7 +2219,7 @@ module.exports = function (obj) {
   anObject(obj);
   var numSize = +obj.size;
   // NOTE: If size is undefined, then numSize will be NaN
-  // eslint-disable-next-line no-self-compare -- NaN check
+   
   if (numSize !== numSize) throw new $TypeError(INVALID_SIZE);
   var intSize = toIntegerOrInfinity(numSize);
   if (intSize < 0) throw new $RangeError(INVALID_SIZE);
@@ -2246,11 +2246,11 @@ module.exports =
   // eslint-disable-next-line es/no-global-this -- safe
   check(typeof globalThis == 'object' && globalThis) ||
   check(typeof window == 'object' && window) ||
-  // eslint-disable-next-line no-restricted-globals -- safe
+   
   check(typeof self == 'object' && self) ||
   check(typeof __webpack_require__.g == 'object' && __webpack_require__.g) ||
   check(typeof this == 'object' && this) ||
-  // eslint-disable-next-line no-new-func -- fallback
+   
   (function () { return this; })() || Function('return this')();
 
 
@@ -2302,7 +2302,7 @@ module.exports = {};
 
 module.exports = function (a, b) {
   try {
-    // eslint-disable-next-line no-console -- safe
+     
     arguments.length === 1 ? console.error(a) : console.error(a, b);
   } catch (error) { /* empty */ }
 };
@@ -3343,7 +3343,7 @@ var makeBuiltIn = module.exports = function (value, name, options) {
 };
 
 // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
-// eslint-disable-next-line no-extend-native -- required
+ 
 Function.prototype.toString = makeBuiltIn(function toString() {
   return isCallable(this) && getInternalState(this).source || inspectSource(this);
 }, 'toString');
@@ -3641,7 +3641,7 @@ var NullProtoObjectViaActiveX = function (activeXDocument) {
   activeXDocument.write(scriptTag(''));
   activeXDocument.close();
   var temp = activeXDocument.parentWindow.Object;
-  // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+   
   activeXDocument = null;
   return temp;
 };
@@ -4058,7 +4058,7 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 
 "use strict";
 
-/* eslint-disable no-proto -- safe */
+ 
 var uncurryThisAccessor = __webpack_require__(/*! ../internals/function-uncurry-this-accessor */ "./node_modules/core-js/internals/function-uncurry-this-accessor.js");
 var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
 var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "./node_modules/core-js/internals/require-object-coercible.js");
@@ -4406,7 +4406,7 @@ module.exports = function (name) {
 // `SameValueZero` abstract operation
 // https://tc39.es/ecma262/#sec-samevaluezero
 module.exports = function (x, y) {
-  // eslint-disable-next-line no-self-compare -- NaN check
+   
   return x === y || x !== x && y !== y;
 };
 
@@ -5212,7 +5212,7 @@ var trunc = __webpack_require__(/*! ../internals/math-trunc */ "./node_modules/c
 // https://tc39.es/ecma262/#sec-tointegerorinfinity
 module.exports = function (argument) {
   var number = +argument;
-  // eslint-disable-next-line no-self-compare -- NaN check
+   
   return number !== number || number === 0 ? 0 : trunc(number);
 };
 
@@ -6264,7 +6264,7 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
 
   PromisePrototype = PromiseConstructor.prototype;
 
-  // eslint-disable-next-line no-unused-vars -- required for `.length`
+   
   Internal = function Promise(executor) {
     setInternalState(this, {
       type: PROMISE,
@@ -7298,7 +7298,7 @@ var set = (__webpack_require__(/*! ../internals/map-helpers */ "./node_modules/c
 // `Map.prototype.merge` method
 // https://github.com/tc39/proposal-collection-methods
 $({ target: 'Map', proto: true, real: true, arity: 1, forced: true }, {
-  // eslint-disable-next-line no-unused-vars -- required for `.length`
+   
   merge: function merge(iterable /* ...iterables */) {
     var map = aMap(this);
     var argumentsLength = arguments.length;
@@ -11118,7 +11118,7 @@ __webpack_require__.r(__webpack_exports__);
 var g =
   (typeof globalThis !== 'undefined' && globalThis) ||
   (typeof self !== 'undefined' && self) ||
-  // eslint-disable-next-line no-undef
+   
   (typeof __webpack_require__.g !== 'undefined' && __webpack_require__.g) ||
   {}
 

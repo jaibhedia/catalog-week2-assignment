@@ -6,19 +6,28 @@
   "scripts": {
     "start": "webpack serve --port 3000",
     "build": "set NODE_ENV=production && webpack",
-    "preview": "serve dist -p 3000"
+    "preview": "serve dist -p 3000",
+    "lint": "eslint . --fix --max-warnings=0",
+    "prepare": "husky install"
   },
   "author": "jaibhedia",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "css-loader": "^7.1.2",
     "esbuild-loader": "^4.3.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^16.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "mini-css-extract-plugin": "^2.9.2",
     "serve": "^14.2.4",
     "typescript": "^5.7.3",
+    "typescript-eslint": "^8.25.0",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.0"
@@ -30,5 +39,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "whatwg-fetch": "^3.6.20"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }

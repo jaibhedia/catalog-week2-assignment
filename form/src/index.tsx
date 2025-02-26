@@ -19,7 +19,6 @@ interface FormErrors {
   city?: string;
 }
 
-/** A simple list of Indian cities for the modal */
 const indianCities = [
   "Mumbai",
   "Delhi",
@@ -33,12 +32,6 @@ const indianCities = [
   "Surat",
 ];
 
-/** 
- * CityModal component with search functionality.
- * - isOpen: whether the modal is displayed
- * - onClose: function to close the modal
- * - onSelect: function to handle city selection
- */
 interface CityModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -50,17 +43,14 @@ const CityModal: React.FC<CityModalProps> = ({ isOpen, onClose, onSelect }) => {
 
   if (!isOpen) return null;
 
-  // Click outside modal content to close
   const handleBackdropClick = () => {
     onClose();
   };
 
-  // Stop propagation so clicks inside modal don’t close it
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
 
-  // Filter the city list by the search term (case-insensitive)
   const filteredCities = indianCities.filter((city) =>
     city.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -69,7 +59,6 @@ const CityModal: React.FC<CityModalProps> = ({ isOpen, onClose, onSelect }) => {
     <div className="city-modal-backdrop" onClick={handleBackdropClick}>
       <div className="city-modal-content" onClick={handleModalClick}>
         <h2>Select a City</h2>
-        {/* Search Bar */}
         <div className="city-modal-search">
           <input
             type="text"
@@ -78,7 +67,6 @@ const CityModal: React.FC<CityModalProps> = ({ isOpen, onClose, onSelect }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-
         <div className="city-list">
           {filteredCities.length > 0 ? (
             filteredCities.map((city) => (
@@ -105,6 +93,27 @@ const CityModal: React.FC<CityModalProps> = ({ isOpen, onClose, onSelect }) => {
   );
 };
 
+const ThemeSettings: React.FC = () => {
+  const [primaryColor, setPrimaryColor] = useState<string>("#cd7092");
+
+  const handlePrimaryColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newColor = e.target.value;
+    setPrimaryColor(newColor);
+    document.documentElement.style.setProperty("--primary-color", newColor);
+  };
+
+  return (
+    <div className="theme-settings">
+      <label htmlFor="primaryColor">Primary Color:</label>
+      <input
+        id="primaryColor"
+        type="color"
+        value={primaryColor}
+        onChange={handlePrimaryColorChange}
+      />
+    </div>
+  );
+};
 const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -116,7 +125,6 @@ const App: React.FC = () => {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [cityModalOpen, setCityModalOpen] = useState<boolean>(false);
 
-  /** Check if entire form is valid */
   const isFormValid = (): boolean => {
     if (!formData.name.trim()) return false;
     if (
@@ -130,28 +138,22 @@ const App: React.FC = () => {
     if (!/[A-Z]/.test(formData.password)) return false;
     if (!/[a-z]/.test(formData.password)) return false;
     if (!/[^A-Za-z0-9]/.test(formData.password)) return false;
-    // Must agree
     if (!formData.agreed) return false;
-    // Must pick a city
     if (!formData.city) return false;
     return true;
   };
 
-  /** Validate fields on final submit */
   const validateOnSubmit = (): boolean => {
     const errors: FormErrors = {};
 
-    // Name
     if (!formData.name.trim()) {
       errors.name = "Name is required.";
     }
-    // Email
     if (!formData.email.trim()) {
       errors.email = "Email is required.";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
       errors.email = "Please enter a valid email address (e.g., test@gmail.com).";
     }
-    // Password
     if (!formData.password) {
       errors.password = "Password is required.";
     } else if (formData.password.length < 8) {
@@ -163,11 +165,9 @@ const App: React.FC = () => {
     } else if (!/[^A-Za-z0-9]/.test(formData.password)) {
       errors.password = "Password must contain at least one special character.";
     }
-    // Must agree
     if (!formData.agreed) {
       errors.agreed = "You must agree to the terms and conditions.";
     }
-    // Must pick a city
     if (!formData.city) {
       errors.city = "Please select a city.";
     }
@@ -176,15 +176,12 @@ const App: React.FC = () => {
     return Object.keys(errors).length === 0;
   };
 
-  /** Handle changes for name, email, password, and agreed checkbox */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-
-    // Real-time validation
     if (name === "name") {
       let error = "";
       if (!value.trim()) error = "Name is required.";
@@ -220,10 +217,8 @@ const App: React.FC = () => {
     }
   };
 
-  /** Called when user selects a city in the modal */
   const handleCitySelect = (city: string) => {
     setFormData((prev) => ({ ...prev, city }));
-    // Real-time validation for city
     let error = "";
     if (!city) {
       error = "Please select a city.";
@@ -231,14 +226,11 @@ const App: React.FC = () => {
     setFormErrors((prev) => ({ ...prev, city: error }));
   };
 
-  /** Final form submission */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOnSubmit()) {
       alert("Form submitted successfully!");
       console.log("Submitted form data:", formData);
-
-      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -251,92 +243,82 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Form Validator</h1>
-      <form onSubmit={handleSubmit} noValidate>
-        {/* Name */}
-        <div className="form-control">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {formErrors.name && <p className="error">{formErrors.name}</p>}
-        </div>
-
-        {/* Email */}
-        <div className="form-control">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {formErrors.email && <p className="error">{formErrors.email}</p>}
-        </div>
-
-        {/* Password */}
-        <div className="form-control">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {formErrors.password && <p className="error">{formErrors.password}</p>}
-        </div>
-
-        {/* City: Instead of a dropdown, show selected city or placeholder + a button */}
-        <div className="form-control">
-          <label>City:</label>
-          <div className="city-field">
-            <span className="city-display">
-              {formData.city || "No city selected"}
-            </span>
-            <button
-              type="button"
-              className="select-city-btn"
-              onClick={() => setCityModalOpen(true)}
-            >
-              Select City
-            </button>
-          </div>
-          {formErrors.city && <p className="error">{formErrors.city}</p>}
-        </div>
-
-        {/* Terms & Conditions */}
-        <div className="form-control">
-          <label htmlFor="agreed">
+    <div>
+      <ThemeSettings />
+      <div className="container">
+        <h1>Form Validator</h1>
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="form-control">
+            <label htmlFor="name">Name:</label>
             <input
-              type="checkbox"
-              id="agreed"
-              name="agreed"
-              checked={formData.agreed}
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
             />
-            I agree to the terms and conditions
-          </label>
-          {formErrors.agreed && <p className="error">{formErrors.agreed}</p>}
-        </div>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={!isFormValid()}
-          className={`submit-button ${isFormValid() ? "active" : "inactive"}`}
-        >
-          Submit
-        </button>
-      </form>
-
-      {/* City Modal with search bar */}
+            {formErrors.name && <p className="error">{formErrors.name}</p>}
+          </div>
+          <div className="form-control">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {formErrors.email && <p className="error">{formErrors.email}</p>}
+          </div>
+          <div className="form-control">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {formErrors.password && <p className="error">{formErrors.password}</p>}
+          </div>
+          <div className="form-control">
+            <label>City:</label>
+            <div className="city-field">
+              <span className="city-display">
+                {formData.city || "No city selected"}
+              </span>
+              <button
+                type="button"
+                className="select-city-btn"
+                onClick={() => setCityModalOpen(true)}
+              >
+                Select City
+              </button>
+            </div>
+            {formErrors.city && <p className="error">{formErrors.city}</p>}
+          </div>
+          <div className="form-control">
+            <label htmlFor="agreed">
+              <input
+                type="checkbox"
+                id="agreed"
+                name="agreed"
+                checked={formData.agreed}
+                onChange={handleChange}
+              />
+              I agree to the terms and conditions
+            </label>
+            {formErrors.agreed && <p className="error">{formErrors.agreed}</p>}
+          </div>
+          <button
+            type="submit"
+            disabled={!isFormValid()}
+            className={`submit-button ${isFormValid() ? "active" : "inactive"}`}
+          >
+            Submit
+          </button>
+        </form>
+      </div>
       <CityModal
         isOpen={cityModalOpen}
         onClose={() => setCityModalOpen(false)}
