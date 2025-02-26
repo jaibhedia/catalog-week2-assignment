@@ -1,7 +1,8 @@
 
 # Catalog-Week-2-Assignmnet | Garden-Form-Validator
 
-![Garden Form Validator Screenshot](./assets/garden-form-validator.png)
+![Form Validator Screenshot](https://raw.githubusercontent.com/jaibhedia/catalog-week2-assignment/main/assets/garden-form-validator.png)
+
 
 A fully customizable React and TypeScript form validator with features such as:
 
