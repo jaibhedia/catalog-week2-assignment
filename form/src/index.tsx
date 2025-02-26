@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
+import CityModal from "./CityModal";
+import ThemeSettings from "./ThemeSettings";
 import "./index.css";
 
 /** Data interfaces */
@@ -19,101 +21,6 @@ interface FormErrors {
   city?: string;
 }
 
-const indianCities = [
-  "Mumbai",
-  "Delhi",
-  "Bengaluru",
-  "Hyderabad",
-  "Chennai",
-  "Kolkata",
-  "Pune",
-  "Jaipur",
-  "Ahmedabad",
-  "Surat",
-];
-
-interface CityModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSelect: (city: string) => void;
-}
-
-const CityModal: React.FC<CityModalProps> = ({ isOpen, onClose, onSelect }) => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  if (!isOpen) return null;
-
-  const handleBackdropClick = () => {
-    onClose();
-  };
-
-  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-  };
-
-  const filteredCities = indianCities.filter((city) =>
-    city.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <div className="city-modal-backdrop" onClick={handleBackdropClick}>
-      <div className="city-modal-content" onClick={handleModalClick}>
-        <h2>Select a City</h2>
-        <div className="city-modal-search">
-          <input
-            type="text"
-            placeholder="Search city..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="city-list">
-          {filteredCities.length > 0 ? (
-            filteredCities.map((city) => (
-              <div
-                key={city}
-                className="city-list-item"
-                onClick={() => {
-                  onSelect(city);
-                  onClose();
-                }}
-              >
-                {city}
-              </div>
-            ))
-          ) : (
-            <div className="city-list-empty">No results found.</div>
-          )}
-        </div>
-        <button className="close-modal-btn" onClick={onClose}>
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const ThemeSettings: React.FC = () => {
-  const [primaryColor, setPrimaryColor] = useState<string>("#cd7092");
-
-  const handlePrimaryColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newColor = e.target.value;
-    setPrimaryColor(newColor);
-    document.documentElement.style.setProperty("--primary-color", newColor);
-  };
-
-  return (
-    <div className="theme-settings">
-      <label htmlFor="primaryColor">Primary Color:</label>
-      <input
-        id="primaryColor"
-        type="color"
-        value={primaryColor}
-        onChange={handlePrimaryColorChange}
-      />
-    </div>
-  );
-};
 const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -145,7 +52,6 @@ const App: React.FC = () => {
 
   const validateOnSubmit = (): boolean => {
     const errors: FormErrors = {};
-
     if (!formData.name.trim()) {
       errors.name = "Name is required.";
     }
@@ -171,7 +77,6 @@ const App: React.FC = () => {
     if (!formData.city) {
       errors.city = "Please select a city.";
     }
-
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };

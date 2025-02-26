@@ -25,10 +25,11 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* Theme settings panel */
 .theme-settings {
-  display: flex;                /* horizontal layout */
-  align-items: center;          /* vertically center them */
-  gap: 8px;                     /* space between label & input */
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 16px;
   padding: 8px 16px;
   background: var(--background-color);
@@ -38,7 +39,7 @@ body {
 
 .theme-settings label {
   font-weight: 600;
-  margin: 0;                    /* remove default margins if needed */
+  margin: 0;
 }
 
 .theme-settings input[type="color"] {
@@ -274,8 +275,7 @@ form {
   cursor: pointer;
   font-weight: 600;
   transition: background 0.2s ease;
-
-  color: #fff; 
+  color: #fff;
 }
 
 .select-city-btn:hover {
