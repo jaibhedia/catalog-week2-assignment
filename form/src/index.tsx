@@ -21,6 +21,38 @@ interface FormErrors {
   city?: string;
 }
 
+/** Function to compute password strength */
+function getPasswordStrength(password: string): { score: number; label: string } {
+  let score = 0;
+  // Increase score based on length
+  if (password.length >= 8) score += 20;
+  if (password.length >= 12) score += 20;
+  // Increase for uppercase
+  if (/[A-Z]/.test(password)) score += 20;
+  // Increase for lowercase
+  if (/[a-z]/.test(password)) score += 20;
+  // Increase for special character
+  if (/[^A-Za-z0-9]/.test(password)) score += 20;
+  if (score > 100) score = 100;
+
+  let label = "";
+  if (score < 40) {
+    label = "Weak";
+  } else if (score < 80) {
+    label = "Medium";
+  } else {
+    label = "Strong";
+  }
+  return { score, label };
+}
+
+/** Return color based on score */
+function getColor(score: number): string {
+  if (score < 40) return "#e63946"; // red for weak
+  else if (score < 80) return "#f4d35e"; // yellow/orange for medium
+  else return "#2a9d8f"; // green for strong
+}
+
 const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -147,6 +179,9 @@ const App: React.FC = () => {
     }
   };
 
+  // Compute password strength for meter
+  const passwordStrength = getPasswordStrength(formData.password);
+
   return (
     <div>
       <ThemeSettings />
@@ -184,6 +219,17 @@ const App: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
             />
+            {/* Password Meter */}
+            <div className="password-meter">
+              <div
+                className="meter-bar"
+                style={{
+                  width: `${passwordStrength.score}%`,
+                  backgroundColor: getColor(passwordStrength.score),
+                }}
+              ></div>
+              <span className="meter-label">{passwordStrength.label}</span>
+            </div>
             {formErrors.password && <p className="error">{formErrors.password}</p>}
           </div>
           <div className="form-control">

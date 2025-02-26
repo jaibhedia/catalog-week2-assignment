@@ -281,3 +281,19 @@ form {
 .select-city-btn:hover {
   background: var(--primary-color);
 }
+.password-meter {
+  margin-top: 8px;
+}
+
+.meter-bar {
+  height: 6px;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.meter-label {
+  font-size: 0.875rem;
+  color: var(--input-text-color);
+  margin-top: 4px;
+  display: block;
+}
