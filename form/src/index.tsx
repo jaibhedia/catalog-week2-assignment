@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import "./polyfills";
+import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import CityModal from "./CityModal";
 import ThemeSettings from "./ThemeSettings";
@@ -53,6 +54,52 @@ function getColor(score: number): string {
   else return "#2a9d8f"; // green for strong
 }
 
+/** 
+ * FlowerCheckOverlay: 
+ * 1) Shows a spinning flower for 1 second 
+ * 2) Then shows a checkmark + success message 
+ * 3) After another 2 seconds, it auto-closes
+ */
+const FlowerCheckOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  // Two-phase animation: "flower" -> "check"
+  const [phase, setPhase] = useState<"flower" | "check">("flower");
+
+  useEffect(() => {
+    // Show spinning flower for 1 second
+    const flowerTimer = setTimeout(() => {
+      setPhase("check");
+      // Then show check for 2 more seconds
+      const checkTimer = setTimeout(() => {
+        onClose();
+      }, 2000);
+      return () => clearTimeout(checkTimer);
+    }, 1000);
+
+    return () => clearTimeout(flowerTimer);
+  }, [onClose]);
+
+  // If user clicks the overlay, close immediately
+  const handleOverlayClick = () => {
+    onClose();
+  };
+
+  return (
+    <div className="magic-overlay" onClick={handleOverlayClick}>
+      <div className="magic-content" onClick={(e) => e.stopPropagation()}>
+        {phase === "flower" && (
+          <div className="flower-emoji">🌸</div>
+        )}
+        {phase === "check" && (
+          <div className="check-phase">
+            <div className="success-check">✔</div>
+            <p className="success-message">Form Submitted Successfully!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -63,6 +110,9 @@ const App: React.FC = () => {
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [cityModalOpen, setCityModalOpen] = useState<boolean>(false);
+
+  // Controls the custom overlay
+  const [showMagic, setShowMagic] = useState<boolean>(false);
 
   const isFormValid = (): boolean => {
     if (!formData.name.trim()) return false;
@@ -119,6 +169,8 @@ const App: React.FC = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    // Real-time error setting for each field
     if (name === "name") {
       let error = "";
       if (!value.trim()) error = "Name is required.";
@@ -166,7 +218,7 @@ const App: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOnSubmit()) {
-      alert("Form submitted successfully!");
+      // Instead of alert, show our custom "flower->check" overlay
       console.log("Submitted form data:", formData);
       setFormData({
         name: "",
@@ -176,10 +228,11 @@ const App: React.FC = () => {
         city: "",
       });
       setFormErrors({});
+      setShowMagic(true); // show the overlay
     }
   };
 
-  // Compute password strength for meter
+  // Compute password strength for the meter
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
@@ -219,17 +272,18 @@ const App: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
             />
-            {/* Password Meter */}
-            <div className="password-meter">
-              <div
-                className="meter-bar"
-                style={{
-                  width: `${passwordStrength.score}%`,
-                  backgroundColor: getColor(passwordStrength.score),
-                }}
-              ></div>
-              <span className="meter-label">{passwordStrength.label}</span>
-            </div>
+            {formData.password.length > 0 && (
+              <div className="password-meter">
+                <div
+                  className="meter-bar"
+                  style={{
+                    width: `${passwordStrength.score}%`,
+                    backgroundColor: getColor(passwordStrength.score),
+                  }}
+                ></div>
+                <span className="meter-label">{passwordStrength.label}</span>
+              </div>
+            )}
             {formErrors.password && <p className="error">{formErrors.password}</p>}
           </div>
           <div className="form-control">
@@ -270,11 +324,15 @@ const App: React.FC = () => {
           </button>
         </form>
       </div>
+
       <CityModal
         isOpen={cityModalOpen}
         onClose={() => setCityModalOpen(false)}
         onSelect={handleCitySelect}
       />
+
+      {/* Our custom overlay (flower -> check) */}
+      {showMagic && <FlowerCheckOverlay onClose={() => setShowMagic(false)} />}
     </div>
   );
 };

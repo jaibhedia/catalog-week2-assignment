@@ -297,3 +297,137 @@ form {
   margin-top: 4px;
   display: block;
 }
+/* Flower overlay styles */
+.flower-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.flower-emoji {
+  font-size: 64px;
+  animation: spin 2s linear infinite;
+}
+
+/* Keyframes for spinning animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Success Overlay - glass background + center content */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* The content box with the checkmark & message */
+.success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* The big checkmark icon */
+.success-check {
+  font-size: 64px;
+  color: #2a9d8f; /* green color for success */
+  margin-bottom: 12px;
+}
+
+/* The success message text */
+.success-message {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #363535;
+  text-align: center;
+}
+/* Overlay covers the entire screen with a glass effect */
+.magic-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Content container for flower or check */
+.magic-content {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Spinning flower */
+.flower-emoji {
+  font-size: 64px;
+  animation: spin 2s linear infinite;
+}
+
+/* Keyframes for the spinning animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Check phase container */
+.check-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-check {
+  font-size: 64px;
+  color: #2a9d8f; /* green for success */
+  margin-bottom: 12px;
+}
+
+.success-message {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #363535;
+  text-align: center;
+  margin: 0;
+}
