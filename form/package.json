@@ -1,6 +1,6 @@
 {
   "name": "garden-form-validator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "catalog week 2 form validator using react without cra and ts",
   "main": "index.js",
   "scripts": {
