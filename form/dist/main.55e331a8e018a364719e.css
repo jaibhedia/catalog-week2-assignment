@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
+  \*****************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap);
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css (1) ***!
+  \*********************************************************************/
 /* Define CSS Custom Properties for easy theming */
 :root {
   --primary-color: #cd7092;
@@ -431,3 +436,6 @@ form {
   text-align: center;
   margin: 0;
 }
+
+
+/*# sourceMappingURL=main.55e331a8e018a364719e.css.map*/
