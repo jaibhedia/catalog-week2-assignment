@@ -7,7 +7,7 @@
     "start": "webpack serve --port 3000",
     "build": "set NODE_ENV=production && webpack",
     "preview": "serve dist -p 3000",
-    "lint": "eslint . --fix --max-warnings=0",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
     "format": "prettier . --write"
   },
@@ -17,6 +17,8 @@
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
     "css-loader": "^7.1.2",
     "esbuild-loader": "^4.3.0",
     "eslint": "^9.21.0",
