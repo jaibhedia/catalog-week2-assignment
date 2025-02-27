@@ -1,14 +1,14 @@
 {
   "name": "garden-form-validator",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "catalog week 2 form validator using react without cra and ts",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --port 3000",
-    "build": "set NODE_ENV=production && webpack",
+    "build": "webpack --config webpack.config.mjs",
+    "prepare": "npm run build",
     "preview": "serve dist -p 3000",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prepare": "husky install",
     "format": "prettier . --write"
   },
   "author": "jaibhedia",
