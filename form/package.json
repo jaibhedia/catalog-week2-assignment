@@ -1,8 +1,11 @@
 {
   "name": "garden-form-validator",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "catalog week 2 form validator using react without cra and ts",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "webpack serve --port 3000",
     "build": "webpack --config webpack.config.mjs",

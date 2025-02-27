@@ -1,0 +1,9 @@
+src/
+.husky/
+*.ts
+tsconfig.json
+webpack.config.mjs
+README.md
+.gitignore
+.eslintrc.json
+.prettierrc.json

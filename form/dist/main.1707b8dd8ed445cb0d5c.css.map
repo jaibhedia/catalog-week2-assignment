@@ -1,1 +1,0 @@
-{"version":3,"file":"main.1707b8dd8ed445cb0d5c.css","mappings":";;;AAAA;IACI,WAAW;EACb,C","sources":["webpack://form/./src/index.css"],"sourcesContent":["body {\r\n    color: blue;\r\n  }"],"names":[],"sourceRoot":""}

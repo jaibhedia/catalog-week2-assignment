@@ -27865,6 +27865,121 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./src/CityModal.tsx":
+/*!***************************!*\
+  !*** ./src/CityModal.tsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _useDebounce__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useDebounce */ "./src/useDebounce.ts");
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
+
+
+
+
+
+const indianCities = [
+  "Mumbai",
+  "Delhi",
+  "Bengaluru",
+  "Hyderabad",
+  "Chennai",
+  "Kolkata",
+  "Pune",
+  "Jaipur",
+  "Ahmedabad",
+  "Surat"
+];
+const CityModal = ({ isOpen, onClose, onSelect }) => {
+  const [displayTerm, setDisplayTerm] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("");
+  const debouncedTerm = (0,_useDebounce__WEBPACK_IMPORTED_MODULE_2__.useDebounce)(displayTerm, 500);
+  if (!isOpen) return null;
+  const handleBackdropClick = () => onClose();
+  const handleModalClick = (e) => e.stopPropagation();
+  const filteredCities = indianCities.filter(
+    (city) => city.toLowerCase().includes(debouncedTerm.toLowerCase())
+  );
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "city-modal-backdrop", onClick: handleBackdropClick, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "city-modal-content", onClick: handleModalClick, children: [
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Select a City" }),
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "city-modal-search", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      "input",
+      {
+        type: "text",
+        placeholder: "Search city...",
+        value: displayTerm,
+        onChange: (e) => setDisplayTerm(e.target.value)
+      }
+    ) }),
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "city-list", children: filteredCities.length > 0 ? filteredCities.map((city) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      "div",
+      {
+        className: "city-list-item",
+        onClick: () => {
+          onSelect(city);
+          onClose();
+        },
+        children: city
+      },
+      city
+    )) : /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "city-list-empty", children: "No results found." }) }),
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "close-modal-btn", onClick: onClose, children: "Cancel" })
+  ] }) });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CityModal);
+
+
+/***/ }),
+
+/***/ "./src/ThemeSettings.tsx":
+/*!*******************************!*\
+  !*** ./src/ThemeSettings.tsx ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
+
+
+
+
+const ThemeSettings = () => {
+  const [primaryColor, setPrimaryColor] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("#cd7092");
+  const handlePrimaryColorChange = (e) => {
+    const newColor = e.target.value;
+    setPrimaryColor(newColor);
+    document.documentElement.style.setProperty("--primary-color", newColor);
+  };
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "theme-settings", children: [
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "primaryColor", children: "Primary Color:" }),
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      "input",
+      {
+        id: "primaryColor",
+        type: "color",
+        value: primaryColor,
+        onChange: handlePrimaryColorChange
+      }
+    )
+  ] });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ThemeSettings);
+
+
+/***/ }),
+
 /***/ "./src/index.css":
 /*!***********************!*\
   !*** ./src/index.css ***!
@@ -27873,6 +27988,68 @@ if (false) {} else {
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/polyfills.ts":
+/*!**************************!*\
+  !*** ./src/polyfills.ts ***!
+  \**************************/
+/***/ (() => {
+
+
+if (!Array.prototype.find) {
+  Array.prototype.find = function(callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('"this" is null or undefined');
+    }
+    const o = Object(this);
+    const len = o.length >>> 0;
+    if (typeof callback !== "function") {
+      throw new TypeError("callback must be a function");
+    }
+    let k = 0;
+    while (k < len) {
+      const kValue = o[k];
+      if (callback.call(thisArg, kValue, k, o)) {
+        return kValue;
+      }
+      k++;
+    }
+    return void 0;
+  };
+}
+
+
+/***/ }),
+
+/***/ "./src/useDebounce.ts":
+/*!****************************!*\
+  !*** ./src/useDebounce.ts ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useDebounce: () => (/* binding */ useDebounce)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function useDebounce(value, delay = 500) {
+  const [debouncedValue, setDebouncedValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(value);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
 
 
 /***/ })
@@ -27965,23 +28142,94 @@ var __webpack_exports__ = {};
   \***********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
+/* harmony import */ var _polyfills__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./polyfills */ "./src/polyfills.ts");
+/* harmony import */ var _polyfills__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfills__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _CityModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CityModal */ "./src/CityModal.tsx");
+/* harmony import */ var _ThemeSettings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ThemeSettings */ "./src/ThemeSettings.tsx");
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
 
 
 
 
 
+
+
+
+function getPasswordStrength(password) {
+  let score = 0;
+  if (password.length >= 8) score += 20;
+  if (password.length >= 12) score += 20;
+  if (/[A-Z]/.test(password)) score += 20;
+  if (/[a-z]/.test(password)) score += 20;
+  if (/[^A-Za-z0-9]/.test(password)) score += 20;
+  if (score > 100) score = 100;
+  let label = "";
+  if (score < 40) {
+    label = "Weak";
+  } else if (score < 80) {
+    label = "Medium";
+  } else {
+    label = "Strong";
+  }
+  return { score, label };
+}
+function getColor(score) {
+  if (score < 40) return "#e63946";
+  else if (score < 80) return "#f4d35e";
+  else return "#2a9d8f";
+}
+const FlowerCheckOverlay = ({ onClose }) => {
+  const [phase, setPhase] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("flower");
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    const flowerTimer = setTimeout(() => {
+      setPhase("check");
+      const checkTimer = setTimeout(() => {
+        onClose();
+      }, 2e3);
+      return () => clearTimeout(checkTimer);
+    }, 1e3);
+    return () => clearTimeout(flowerTimer);
+  }, [onClose]);
+  const handleOverlayClick = () => {
+    onClose();
+  };
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "magic-overlay", onClick: handleOverlayClick, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "magic-content", onClick: (e) => e.stopPropagation(), children: [
+    phase === "flower" && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "flower-emoji", children: "\u{1F338}" }),
+    phase === "check" && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "check-phase", children: [
+      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "success-check", children: "\u2714" }),
+      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "success-message", children: "Form Submitted Successfully!" })
+    ] })
+  ] }) });
+};
 const App = () => {
-  const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+  const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    agreed: false,
+    city: ""
   });
-  const [formErrors, setFormErrors] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({});
-  const validate = () => {
+  const [formErrors, setFormErrors] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({});
+  const [cityModalOpen, setCityModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
+  const [showMagic, setShowMagic] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
+  const isFormValid = () => {
+    if (!formData.name.trim()) return false;
+    if (!formData.email.trim() || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      return false;
+    }
+    if (!formData.password) return false;
+    if (formData.password.length < 8) return false;
+    if (!/[A-Z]/.test(formData.password)) return false;
+    if (!/[a-z]/.test(formData.password)) return false;
+    if (!/[^A-Za-z0-9]/.test(formData.password)) return false;
+    if (!formData.agreed) return false;
+    if (!formData.city) return false;
+    return true;
+  };
+  const validateOnSubmit = () => {
     const errors = {};
     if (!formData.name.trim()) {
       errors.name = "Name is required.";
@@ -27989,88 +28237,216 @@ const App = () => {
     if (!formData.email.trim()) {
       errors.email = "Email is required.";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      errors.email = "Email is invalid.";
+      errors.email = "Please enter a valid email address (e.g., test@gmail.com).";
     }
     if (!formData.password) {
       errors.password = "Password is required.";
-    } else if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters long.";
+    } else if (formData.password.length < 8) {
+      errors.password = "Password must be at least 8 characters long.";
+    } else if (!/[A-Z]/.test(formData.password)) {
+      errors.password = "Password must contain at least one uppercase letter.";
+    } else if (!/[a-z]/.test(formData.password)) {
+      errors.password = "Password must contain at least one lowercase letter.";
+    } else if (!/[^A-Za-z0-9]/.test(formData.password)) {
+      errors.password = "Password must contain at least one special character.";
+    }
+    if (!formData.agreed) {
+      errors.agreed = "You must agree to the terms and conditions.";
+    }
+    if (!formData.city) {
+      errors.city = "Please select a city.";
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }));
+    if (name === "name") {
+      let error = "";
+      if (!value.trim()) error = "Name is required.";
+      setFormErrors((prev) => ({ ...prev, name: error }));
+    } else if (name === "email") {
+      let error = "";
+      if (!value.trim()) {
+        error = "Email is required.";
+      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+        error = "Please enter a valid email address (e.g., test@gmail.com).";
+      }
+      setFormErrors((prev) => ({ ...prev, email: error }));
+    } else if (name === "password") {
+      let error = "";
+      if (!value) {
+        error = "Password is required.";
+      } else if (value.length < 8) {
+        error = "Password must be at least 8 characters long.";
+      } else if (!/[A-Z]/.test(value)) {
+        error = "Password must contain at least one uppercase letter.";
+      } else if (!/[a-z]/.test(value)) {
+        error = "Password must contain at least one lowercase letter.";
+      } else if (!/[^A-Za-z0-9]/.test(value)) {
+        error = "Password must contain at least one special character.";
+      }
+      setFormErrors((prev) => ({ ...prev, password: error }));
+    } else if (name === "agreed") {
+      let error = "";
+      if (!checked) {
+        error = "You must agree to the terms and conditions.";
+      }
+      setFormErrors((prev) => ({ ...prev, agreed: error }));
+    }
+  };
+  const handleCitySelect = (city) => {
+    setFormData((prev) => ({ ...prev, city }));
+    let error = "";
+    if (!city) {
+      error = "Please select a city.";
+    }
+    setFormErrors((prev) => ({ ...prev, city: error }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("Form submitted successfully!");
-      setFormData({ name: "", email: "", password: "" });
+    if (validateOnSubmit()) {
+      console.log("Submitted form data:", formData);
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        agreed: false,
+        city: ""
+      });
       setFormErrors({});
+      setShowMagic(true);
     }
   };
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "container", children: [
-    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "React Form Validator" }),
-    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: handleSubmit, noValidate: true, children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
-        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "name", children: "Name:" }),
+  const passwordStrength = getPasswordStrength(formData.password);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ThemeSettings__WEBPACK_IMPORTED_MODULE_5__["default"], {}),
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "container", children: [
+      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Form Validator" }),
+      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: handleSubmit, noValidate: true, children: [
+        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "name", children: "Name:" }),
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+            "input",
+            {
+              type: "text",
+              id: "name",
+              name: "name",
+              value: formData.name,
+              onChange: handleChange
+            }
+          ),
+          formErrors.name && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.name })
+        ] }),
+        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "email", children: "Email:" }),
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+            "input",
+            {
+              type: "text",
+              id: "email",
+              name: "email",
+              value: formData.email,
+              onChange: handleChange
+            }
+          ),
+          formErrors.email && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.email })
+        ] }),
+        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "password", children: "Password:" }),
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+            "input",
+            {
+              type: "password",
+              id: "password",
+              name: "password",
+              value: formData.password,
+              onChange: handleChange
+            }
+          ),
+          formData.password.length > 0 && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "password-meter", children: [
+            /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+              "div",
+              {
+                className: "meter-bar",
+                style: {
+                  width: `${passwordStrength.score}%`,
+                  backgroundColor: getColor(passwordStrength.score)
+                }
+              }
+            ),
+            /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "meter-label", children: passwordStrength.label })
+          ] }),
+          formErrors.password && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.password })
+        ] }),
+        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "City:" }),
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "city-field", children: [
+            /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "city-display", children: formData.city || "No city selected" }),
+            /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+              "button",
+              {
+                type: "button",
+                className: "select-city-btn",
+                onClick: () => setCityModalOpen(true),
+                children: "Select City"
+              }
+            )
+          ] }),
+          formErrors.city && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.city })
+        ] }),
+        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
+          /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { htmlFor: "agreed", children: [
+            /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+              "input",
+              {
+                type: "checkbox",
+                id: "agreed",
+                name: "agreed",
+                checked: formData.agreed,
+                onChange: handleChange
+              }
+            ),
+            "I agree to the terms and conditions"
+          ] }),
+          formErrors.agreed && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.agreed })
+        ] }),
         /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-          "input",
+          "button",
           {
-            type: "text",
-            id: "name",
-            name: "name",
-            value: formData.name,
-            onChange: handleChange
+            type: "submit",
+            disabled: !isFormValid(),
+            className: `submit-button ${isFormValid() ? "active" : "inactive"}`,
+            children: "Submit"
           }
-        ),
-        formErrors.name && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.name })
-      ] }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
-        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "email", children: "Email:" }),
-        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-          "input",
-          {
-            type: "text",
-            id: "email",
-            name: "email",
-            value: formData.email,
-            onChange: handleChange
-          }
-        ),
-        formErrors.email && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.email })
-      ] }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "form-control", children: [
-        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "password", children: "Password:" }),
-        /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-          "input",
-          {
-            type: "password",
-            id: "password",
-            name: "password",
-            value: formData.password,
-            onChange: handleChange
-          }
-        ),
-        formErrors.password && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "error", children: formErrors.password })
-      ] }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", children: "Submit" })
-    ] })
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      _CityModal__WEBPACK_IMPORTED_MODULE_4__["default"],
+      {
+        isOpen: cityModalOpen,
+        onClose: () => setCityModalOpen(false),
+        onSelect: handleCitySelect
+      }
+    ),
+    showMagic && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FlowerCheckOverlay, { onClose: () => setShowMagic(false) })
   ] });
 };
 const container = document.getElementById("root");
 if (!container) {
   throw new Error("Root container not found");
 }
-const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot)(container);
+const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot)(container);
 root.render(/* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(App, {}));
 
 })();
 
+module.exports.GardenFormValidator = __webpack_exports__;
 /******/ })()
 ;
-//# sourceMappingURL=main.2d68332a73675053baf3.js.map
+//# sourceMappingURL=main.js.map
