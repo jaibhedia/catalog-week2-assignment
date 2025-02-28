@@ -1,6 +1,6 @@
 {
   "name": "garden-form-validator",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "catalog week 2 form validator using react without cra and ts",
   "repository": "https://github.com/jaibhedia/catalog-week2-assignment",
   "main": "dist/index.js",
