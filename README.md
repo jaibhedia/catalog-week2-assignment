@@ -17,6 +17,7 @@ This package is designed to be both developer‑friendly and end‑user customiz
 
 ## Table of Contents
 - [NPM Package](#npm-package)
+- [Testing the package](#testing-the-garden-form-validator-package)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Importing and Rendering the Form](#importing-and-rendering-the-form)
@@ -29,7 +30,7 @@ This package is designed to be both developer‑friendly and end‑user customiz
   - [CityModal](#citymodal)
   - [FlowerCheckOverlay / SuccessOverlay](#flowercheckoverlay--successoverlay)
 - [Customization & Styling](#customization--styling)
-- [Development & Contributing](#development--contributing)
+- [Development](#development)
 - [License](#license)
 
 ---
@@ -39,6 +40,73 @@ The published npm package
 ```
 https://www.npmjs.com/package/garden-form-validator
 ```
+---
+
+## Testing the garden-form-validator Package
+
+### 1. Create a New React Project
+
+You can create a fresh React project using a tool like Vite (recommended for its speed) or install react manually.
+
+**Using Vite (with TypeScript):**
+
+```bash
+npm create vite@latest my-test-app -- --template react-ts
+cd my-test-app
+npm install
+```
+
+### 2. Install the Package
+
+If you have published the package on npm:
+
+```bash
+npm install garden-form-validator
+```
+### 3. Import and Use the Component
+
+In your new project’s entry point (for example, in `src/main.tsx` or `src/index.tsx`), import the default export from your package and render it.
+
+Example using Vite's `src/main.tsx`:
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import FormValidator from "garden-form-validator"; // This is your default export
+import "garden-form-validator/dist/main.css"; // Import CSS if needed
+
+const container = document.getElementById("root");
+if (container) {
+  const root = ReactDOM.createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <FormValidator />
+    </React.StrictMode>
+  );
+}
+```
+
+### 4. Run the Development Server
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+For Vite, this will usually run on http://localhost:5173/. Open the browser at that address to see your component rendered.
+
+### 5. Verify and Troubleshoot
+
+- **Component Rendering:**  
+  Confirm that the form validator appears as expected.
+
+- **Styling:**  
+  If your styles are missing, ensure that your CSS file is correctly referenced (e.g., `import "garden-form-validator/dist/main.css";`) and that your package includes the CSS file in the `files` field of your package.json or via .npmignore.
+
+- **Functionality:**  
+  Test the form features (validation, overlays, etc.) to confirm everything works as expected.
+  
 ---
 ## Installation
 
@@ -206,7 +274,7 @@ You can modify these values directly or use the provided ThemeSettings component
 
 ---
 
-## Development & Contributing
+## Development
 
 - **Local Development:**  
   Run your project locally with your preferred dev server (e.g., `npm start` if using Create React App or your custom Webpack setup).
@@ -214,9 +282,6 @@ You can modify these values directly or use the provided ThemeSettings component
 - **Linting and Testing:**  
   Ensure you have proper scripts set up (e.g., ESLint, Jest) to maintain code quality. Consider integrating Husky for pre-commit hooks.
   
-- **Contributing:**  
-  Contributions are welcome! Please open an issue or submit a pull request for improvements, bug fixes, or new features.
-
 - **Building:**  
   To compile the TypeScript code to JavaScript, run:
   
@@ -231,11 +296,5 @@ You can modify these values directly or use the provided ThemeSettings component
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## Summary
-
-The **React TS Form Validator** package is a feature-rich, customizable form solution that combines robust form validation, dynamic theming, an interactive city selection modal, and engaging post-submission animations. Its modular design and CSS variable-based styling make it easy to integrate and customize in modern React projects.
 
 ---
