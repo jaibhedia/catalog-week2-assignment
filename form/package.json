@@ -15,7 +15,7 @@
     "preview": "serve dist -p 3000",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier . --write",
-    "build": "rollup --bundleConfigAsCjs -c"
+    "build": "rollup -c"
   },
   "author": "jaibhedia",
   "license": "ISC",
