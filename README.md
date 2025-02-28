@@ -16,7 +16,7 @@ This package is designed to be both developer‑friendly and end‑user customiz
 ---
 
 ## Table of Contents
-
+- [NPM Package](#npm-package)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Importing and Rendering the Form](#importing-and-rendering-the-form)
@@ -33,7 +33,13 @@ This package is designed to be both developer‑friendly and end‑user customiz
 - [License](#license)
 
 ---
+## NPM Package
 
+The published npm package
+```
+https://www.npmjs.com/package/garden-form-validator
+```
+---
 ## Installation
 
 1. **Clone the Repository**
@@ -57,7 +63,7 @@ This package is designed to be both developer‑friendly and end‑user customiz
    yarn install
    ```
 
-3. **Build the Package (if needed)**
+3. **Build the Package**
 
    The package is written in TypeScript, so you might need to compile it before publishing or using:
 
