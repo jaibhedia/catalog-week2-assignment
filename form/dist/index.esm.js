@@ -1,5 +1,3 @@
-'use strict';
-
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production = {};
@@ -44507,4 +44505,4 @@ if (!container) {
 }
 const root = clientExports.createRoot(container);
 root.render(jsxRuntimeExports.jsx(App, {}));
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.esm.js.map
