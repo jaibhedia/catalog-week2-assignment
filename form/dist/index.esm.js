@@ -1,5 +1,3 @@
-'use strict';
-
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production = {};
@@ -44497,5 +44495,5 @@ if (typeof document !== "undefined") {
     }
 }
 
-module.exports = App;
-//# sourceMappingURL=index.js.map
+export { App as default };
+//# sourceMappingURL=index.esm.js.map

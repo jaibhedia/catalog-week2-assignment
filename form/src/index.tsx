@@ -25,14 +25,10 @@ interface FormErrors {
 /** Function to compute password strength */
 function getPasswordStrength(password: string): { score: number; label: string } {
   let score = 0;
-  // Increase score based on length
   if (password.length >= 8) score += 20;
   if (password.length >= 12) score += 20;
-  // Increase for uppercase
   if (/[A-Z]/.test(password)) score += 20;
-  // Increase for lowercase
   if (/[a-z]/.test(password)) score += 20;
-  // Increase for special character
   if (/[^A-Za-z0-9]/.test(password)) score += 20;
   if (score > 100) score = 100;
 
@@ -49,26 +45,22 @@ function getPasswordStrength(password: string): { score: number; label: string }
 
 /** Return color based on score */
 function getColor(score: number): string {
-  if (score < 40) return "#e63946"; // red for weak
-  else if (score < 80) return "#f4d35e"; // yellow/orange for medium
-  else return "#2a9d8f"; // green for strong
+  if (score < 40) return "#e63946";
+  else if (score < 80) return "#f4d35e";
+  else return "#2a9d8f";
 }
 
-/** 
- * FlowerCheckOverlay: 
- * 1) Shows a spinning flower for 1 second 
- * 2) Then shows a checkmark + success message 
- * 3) After another 2 seconds, it auto-closes
+/** FlowerCheckOverlay component:
+ * 1) Shows a spinning flower for 1 second,
+ * 2) Then shows a checkmark + success message,
+ * 3) Auto-closes after 2 more seconds.
  */
 const FlowerCheckOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  // Two-phase animation: "flower" -> "check"
   const [phase, setPhase] = useState<"flower" | "check">("flower");
 
   useEffect(() => {
-    // Show spinning flower for 1 second
     const flowerTimer = setTimeout(() => {
       setPhase("check");
-      // Then show check for 2 more seconds
       const checkTimer = setTimeout(() => {
         onClose();
       }, 2000);
@@ -78,7 +70,6 @@ const FlowerCheckOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     return () => clearTimeout(flowerTimer);
   }, [onClose]);
 
-  // If user clicks the overlay, close immediately
   const handleOverlayClick = () => {
     onClose();
   };
@@ -86,9 +77,7 @@ const FlowerCheckOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
     <div className="magic-overlay" onClick={handleOverlayClick}>
       <div className="magic-content" onClick={(e) => e.stopPropagation()}>
-        {phase === "flower" && (
-          <div className="flower-emoji">🌸</div>
-        )}
+        {phase === "flower" && <div className="flower-emoji">🌸</div>}
         {phase === "check" && (
           <div className="check-phase">
             <div className="success-check">✔</div>
@@ -110,8 +99,6 @@ const App: React.FC = () => {
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [cityModalOpen, setCityModalOpen] = useState<boolean>(false);
-
-  // Controls the custom overlay
   const [showMagic, setShowMagic] = useState<boolean>(false);
 
   const isFormValid = (): boolean => {
@@ -119,9 +106,8 @@ const App: React.FC = () => {
     if (
       !formData.email.trim() ||
       !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)
-    ) {
+    )
       return false;
-    }
     if (!formData.password) return false;
     if (formData.password.length < 8) return false;
     if (!/[A-Z]/.test(formData.password)) return false;
@@ -139,7 +125,9 @@ const App: React.FC = () => {
     }
     if (!formData.email.trim()) {
       errors.email = "Email is required.";
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+    } else if (
+      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)
+    ) {
       errors.email = "Please enter a valid email address (e.g., test@gmail.com).";
     }
     if (!formData.password) {
@@ -170,7 +158,6 @@ const App: React.FC = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Real-time error setting for each field
     if (name === "name") {
       let error = "";
       if (!value.trim()) error = "Name is required.";
@@ -179,7 +166,9 @@ const App: React.FC = () => {
       let error = "";
       if (!value.trim()) {
         error = "Email is required.";
-      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+      } else if (
+        !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)
+      ) {
         error = "Please enter a valid email address (e.g., test@gmail.com).";
       }
       setFormErrors((prev) => ({ ...prev, email: error }));
@@ -218,8 +207,8 @@ const App: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOnSubmit()) {
-      // Instead of alert, show our custom "flower->check" overlay
       console.log("Submitted form data:", formData);
+      // Reset form data
       setFormData({
         name: "",
         email: "",
@@ -228,11 +217,10 @@ const App: React.FC = () => {
         city: "",
       });
       setFormErrors({});
-      setShowMagic(true); // show the overlay
+      setShowMagic(true);
     }
   };
 
-  // Compute password strength for the meter
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
@@ -284,7 +272,9 @@ const App: React.FC = () => {
                 <span className="meter-label">{passwordStrength.label}</span>
               </div>
             )}
-            {formErrors.password && <p className="error">{formErrors.password}</p>}
+            {formErrors.password && (
+              <p className="error">{formErrors.password}</p>
+            )}
           </div>
           <div className="form-control">
             <label>City:</label>
@@ -324,22 +314,24 @@ const App: React.FC = () => {
           </button>
         </form>
       </div>
-
       <CityModal
         isOpen={cityModalOpen}
         onClose={() => setCityModalOpen(false)}
         onSelect={handleCitySelect}
       />
-
-      {/* Our custom overlay (flower -> check) */}
       {showMagic && <FlowerCheckOverlay onClose={() => setShowMagic(false)} />}
     </div>
   );
 };
 
-const container = document.getElementById("root");
-if (!container) {
-  throw new Error("Root container not found");
+// Only mount if a "root" element exists (for demo purposes)
+if (typeof document !== "undefined") {
+  const container = document.getElementById("root");
+  if (container) {
+    const root = createRoot(container);
+    root.render(<App />);
+  }
 }
-const root = createRoot(container);
-root.render(<App />);
+
+// Export the component as the default export for library usage.
+export default App;
