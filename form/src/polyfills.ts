@@ -1,4 +1,4 @@
-// polyfills.ts
+
 if (!Array.prototype.find) {
     Array.prototype.find = function (callback: (value: any, index: number, obj: any[]) => boolean, thisArg?: any) {
       if (this == null) {
