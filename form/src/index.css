@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-/* Define CSS Custom Properties for easy theming */
+
 :root {
   --primary-color: #cd7092;
   --background-color: rgba(255, 255, 255, 0.6);
@@ -23,7 +23,7 @@ body {
   align-items: center;
   background: linear-gradient(180deg, #bdeedd 0%, #d3f8fa 100%);
   font-family: "Inter", sans-serif;
-  color: #363535; /* Set global default text color */
+  color: #363535; 
 }
 
 /* Theme settings panel */
@@ -161,7 +161,6 @@ form {
   background: #eee;
 }
 
-/* Custom checkbox (native using accent-color) */
 .form-control input[type="checkbox"] {
   accent-color: var(--primary-color);
   width: 14px;
