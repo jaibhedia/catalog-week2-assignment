@@ -50,11 +50,7 @@ function getColor(score: number): string {
   else return "#2a9d8f";
 }
 
-/** FlowerCheckOverlay component:
- * 1) Shows a spinning flower for 1 second,
- * 2) Then shows a checkmark + success message,
- * 3) Auto-closes after 2 more seconds.
- */
+
 const FlowerCheckOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [phase, setPhase] = useState<"flower" | "check">("flower");
 
@@ -324,7 +320,7 @@ const App: React.FC = () => {
   );
 };
 
-// Only mount if a "root" element exists (for demo purposes)
+
 if (typeof document !== "undefined") {
   const container = document.getElementById("root");
   if (container) {
@@ -333,5 +329,5 @@ if (typeof document !== "undefined") {
   }
 }
 
-// Export the component as the default export for library usage.
+
 export default App;
